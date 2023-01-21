@@ -37,7 +37,7 @@ router.post("/", async function (req, res, next) {
       },
       params: {
         "api-version": "3.0",
-        from: "tr",
+        from: req.body.from,
         to: [req.body.to],
       },
       data: [
@@ -53,6 +53,8 @@ router.post("/", async function (req, res, next) {
       uid: uuidv4().toString(),
       text: req.body.text,
       to: req.body.to,
+      from: req.body.from,
+      translatedText: formData.data[0].translations[0].text
     });
 
     // Retrieve Updated Database

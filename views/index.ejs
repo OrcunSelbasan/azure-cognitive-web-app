@@ -8,25 +8,54 @@
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
 
-    <ul>
-      <% for(var i=0; i < translations.length; i++) { %>
-        <li><b>uid: </b><%= translations[i].uid %> | <b>text: </b><%= translations[i].text %> |<b>To: </b><%= translations[i].to %> |</li>
-      <% } %>
-      <br>
-    </ul>
 
     <form action="/" method="POST">
       <label for="text"></label>
       <textarea name="text" id="" cols="30" rows="10" required></textarea>
       <br />
-      <label for="to">Translate to: </label>
-      <select name="to" id="" required>
+      <label for="from">Translate from: </label>
+      <select class="from" name="from" id="" required>
+        <option value="tr">Turkish</option>
         <option value="en">English</option>
         <option value="de">German</option>
       </select>
-      <button type="submit">Translate</button>
+      <label for="to">Translate to: </label>
+      <select class="to" name="to" id="" required>
+        <option value="tr">Turkish</option>
+        <option value="en">English</option>
+        <option value="de">German</option>
+      </select>
+      <button class="submit" type="submit">Translate</button>
     </form>
 
     <p><b>Translated text: </b> <%= translationBody %></p>
+    <br><br>
+
+    <ul>
+      <% for(var i=0; i < translations.length; i++) { %>
+      <li>
+        <b>uid: </b><%= translations[i].uid %>
+        <ul>
+          <li><b>from: </b><%= translations[i].from %></li>
+          <li><b>to: </b><%= translations[i].to %></li>
+          <li><b>text: </b><%= translations[i].text %></li>
+          <li><b>translated text:</b><%= translations[i].translatedText %></li>
+        </ul>
+      </li>
+      <% } %>
+      <br />
+    </ul>
   </body>
+  <script>
+    var from = document.querySelector(".from");
+    var to = document.querySelector(".to");
+    var submit = document.querySelector(".submit");
+
+    submit.addEventListener("click", function(e) {
+      if (from.value == to.value) {
+        alert("Please choose different languages")
+        e.preventDefault();
+      }
+    })
+  </script>
 </html>
